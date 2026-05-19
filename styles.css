@@ -251,6 +251,12 @@ h1, h2, h3, h4, .logo span {
     color: var(--text-primary);
 }
 
+.canvas-wrapper {
+    position: relative;
+    height: 260px;
+    width: 100%;
+}
+
 /* Tables */
 .tables-grid {
     display: grid;
