@@ -8,6 +8,7 @@ This dashboard aggregates open-source intelligence and real-time cyber news to p
 
 ### Features
 - **Live Intelligence Feed**: Automatically pulls and filters the latest relevant news and cyber event reports from top industry sources (BBC, Al Jazeera, BleepingComputer, Dark Reading, The Hacker News).
+- **Exploited Vulnerablities Database**: Automatically pulls vulnerabilities mentioned in the live intelligence feed and puts them in an actively exploited vulnerabilities table.
 - **Threat Actor Database**: Comprehensive database of active cyber groups, their origins, tactical motivations, and primary targeting sectors.
 - **Serverless Architecture**: Built with vanilla HTML/CSS/JS and runs entirely within the browser, utilizing CORS proxies to fetch live data directly without requiring a backend server.
 
