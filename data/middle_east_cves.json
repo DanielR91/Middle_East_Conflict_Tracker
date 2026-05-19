@@ -1,0 +1,7 @@
+[
+    { "id": "CVE-2023-34362", "system": "MOVEit Transfer", "severity": "Critical", "badge": "badge-critical" },
+    { "id": "CVE-2024-21412", "system": "Windows Defender", "severity": "Critical", "badge": "badge-critical" },
+    { "id": "CVE-2023-46805", "system": "Ivanti ICS", "severity": "High", "badge": "badge-high" },
+    { "id": "CVE-2024-3400", "system": "Palo Alto PAN-OS", "severity": "Critical", "badge": "badge-critical" },
+    { "id": "CVE-2023-4966", "system": "Citrix NetScaler", "severity": "High", "badge": "badge-high" }
+]

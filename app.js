@@ -186,7 +186,7 @@ function populateActorsTable() {
     }
 }
 
-function populateTables() {
+async function populateTables() {
     // Intensity Table
     const intensityData = [
         { country: "Israel", attacks: "12,450", intensity: "Critical", trend: "up", class: "intensity-high" },
@@ -210,13 +210,22 @@ function populateTables() {
     }
 
     // CVE Table
-    const cveData = [
+    let cveData = [
         { id: "CVE-2023-34362", system: "MOVEit Transfer", severity: "Critical", badge: "badge-critical" },
         { id: "CVE-2024-21412", system: "Windows Defender", severity: "Critical", badge: "badge-critical" },
         { id: "CVE-2023-46805", system: "Ivanti ICS", severity: "High", badge: "badge-high" },
         { id: "CVE-2024-3400", system: "Palo Alto PAN-OS", severity: "Critical", badge: "badge-critical" },
         { id: "CVE-2023-4966", system: "Citrix NetScaler", severity: "High", badge: "badge-high" }
     ];
+
+    try {
+        const response = await fetch('data/middle_east_cves.json');
+        if (response.ok) {
+            cveData = await response.json();
+        }
+    } catch (e) {
+        console.error("Could not load dynamic CVE data, using fallback.", e);
+    }
 
     const cveTbody = document.querySelector('#cve-table tbody');
     if (cveTbody) {
