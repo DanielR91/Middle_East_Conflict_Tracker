@@ -283,6 +283,13 @@ async function fetchNewsFeed() {
         // Sort by date descending
         allItems.sort((a, b) => b.pubDate - a.pubDate);
 
+        const badgeEl = document.getElementById('dynamic-alert-badge');
+        if (badgeEl) {
+            const twentyFourHoursAgo = Date.now() - (24 * 60 * 60 * 1000);
+            const recentCount = allItems.filter(item => item.pubDate > twentyFourHoursAgo).length;
+            badgeEl.innerHTML = `<i class="fa-solid fa-satellite-dish"></i> ${recentCount} New Reports (24h)`;
+        }
+
         if (allItems.length === 0) {
             container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px;">No relevant news found at this time.</div>';
             return;
@@ -301,6 +308,9 @@ async function fetchNewsFeed() {
         `).join('');
     } catch (error) {
         console.error('Error fetching news:', error);
+        const badgeEl = document.getElementById('dynamic-alert-badge');
+        if (badgeEl) badgeEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Sync Failed`;
+
         container.innerHTML = `
             <div style="grid-column: 1/-1; padding: 20px; border: 1px solid #ff3366; background: rgba(255,51,102,0.1); border-radius: 8px; text-align:center;">
                 <i class="fa-solid fa-circle-exclamation text-crimson" style="font-size: 2rem; margin-bottom: 10px;"></i>
