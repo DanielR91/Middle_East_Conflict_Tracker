@@ -47,6 +47,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Actor Search Functionality
+    const actorSearchInput = document.getElementById('actor-search');
+    if (actorSearchInput) {
+        actorSearchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.actor-card');
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    }
+
     // Update Last Updated Timestamp
     document.getElementById('last-updated').textContent = `Last Updated: ${new Date().toLocaleString()}`;
 });
@@ -342,11 +359,26 @@ async function fetchNewsFeed() {
         // Sort by date descending
         allItems.sort((a, b) => b.pubDate - a.pubDate);
 
+        const twentyFourHoursAgo = Date.now() - (24 * 60 * 60 * 1000);
+        const recentCount = allItems.filter(item => item.pubDate > twentyFourHoursAgo).length;
+
         const badgeEl = document.getElementById('dynamic-alert-badge');
         if (badgeEl) {
-            const twentyFourHoursAgo = Date.now() - (24 * 60 * 60 * 1000);
-            const recentCount = allItems.filter(item => item.pubDate > twentyFourHoursAgo).length;
             badgeEl.innerHTML = `<i class="fa-solid fa-satellite-dish"></i> ${recentCount} New Reports (24h)`;
+        }
+
+        const gaugeEl = document.getElementById('threat-level-gauge');
+        if (gaugeEl) {
+            if (recentCount >= 15) {
+                gaugeEl.textContent = 'CRITICAL';
+                gaugeEl.className = 'threat-badge threat-critical';
+            } else if (recentCount >= 5) {
+                gaugeEl.textContent = 'HIGH';
+                gaugeEl.className = 'threat-badge threat-high';
+            } else {
+                gaugeEl.textContent = 'ELEVATED';
+                gaugeEl.className = 'threat-badge threat-elevated';
+            }
         }
 
         if (allItems.length === 0) {

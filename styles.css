@@ -101,6 +101,33 @@ h1, h2, h3, h4, .logo span {
     color: var(--text-secondary);
 }
 
+.threat-level-container {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+}
+
+.threat-badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(255,255,255,0.3);
+}
+
+.threat-critical { background: var(--accent-crimson); color: #fff; box-shadow: var(--glow-crimson); animation: pulse-critical 1.5s infinite; }
+.threat-high { background: var(--accent-yellow); color: #000; box-shadow: 0 0 10px var(--accent-yellow); }
+.threat-elevated { background: var(--accent-cyan); color: #000; box-shadow: var(--glow-cyan); }
+
+@keyframes pulse-critical {
+    0% { transform: scale(1); box-shadow: 0 0 10px var(--accent-crimson); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px var(--accent-crimson); }
+    100% { transform: scale(1); box-shadow: 0 0 10px var(--accent-crimson); }
+}
+
 .status-indicator {
     display: inline-block;
     width: 8px;

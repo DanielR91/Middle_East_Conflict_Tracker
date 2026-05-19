@@ -32,6 +32,10 @@
             </nav>
             <div class="sidebar-footer">
                 <p>Status: <span class="status-indicator online"></span> LIVE</p>
+                <div class="threat-level-container">
+                    <span>Threat Level:</span>
+                    <span id="threat-level-gauge" class="threat-badge threat-critical">CRITICAL</span>
+                </div>
                 <p id="last-updated">Last Updated: --</p>
             </div>
         </aside>
@@ -140,7 +144,13 @@
                         </table>
                     </div>
 
-                    <h3 style="margin-bottom: 20px; font-size: 1.2rem; color: var(--text-primary); font-family: 'Inter', sans-serif; font-weight: 600;">All Known Threat Actors (Middle East)</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="font-size: 1.2rem; color: var(--text-primary); font-family: 'Inter', sans-serif; font-weight: 600;">All Known Threat Actors (Middle East)</h3>
+                        <div class="search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="actor-search" placeholder="Search actors by name, origin, target...">
+                        </div>
+                    </div>
                     <div class="actors-grid" id="actors-grid">
                         <!-- Populated by JS -->
                     </div>
