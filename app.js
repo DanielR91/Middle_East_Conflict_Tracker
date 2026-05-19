@@ -205,14 +205,23 @@ function populateActorsTable() {
 
 async function populateTables() {
     // Intensity Table
-    const intensityData = [
-        { country: "Israel", attacks: "12,450", intensity: "Critical", trend: "up", class: "intensity-high" },
-        { country: "Iran", attacks: "9,820", intensity: "High", trend: "up", class: "intensity-high" },
-        { country: "Lebanon", attacks: "4,100", intensity: "Medium", trend: "up", class: "intensity-med" },
-        { country: "Syria", attacks: "2,340", intensity: "Medium", trend: "down", class: "intensity-med" },
-        { country: "Jordan", attacks: "850", intensity: "Low", trend: "down", class: "intensity-low" },
-        { country: "Egypt", attacks: "620", intensity: "Low", trend: "down", class: "intensity-low" }
+    let intensityData = [
+        { country: "Israel", attacks: "142", intensity: "Critical", trend: "up", class: "intensity-high" },
+        { country: "Iran", attacks: "85", "intensity": "High", trend: "up", class: "intensity-high" },
+        { country: "Lebanon", attacks: "32", "intensity": "Medium", trend: "up", class: "intensity-med" },
+        { country: "Syria", "attacks": "15", "intensity": "Low", trend: "down", class: "intensity-low" },
+        { country: "Jordan", "attacks": "8", "intensity": "Low", trend: "down", class: "intensity-low" },
+        { country: "Egypt", "attacks": "3", "intensity": "Low", trend: "down", class: "intensity-low" }
     ];
+
+    try {
+        const response = await fetch('data/target_intensity.json');
+        if (response.ok) {
+            intensityData = await response.json();
+        }
+    } catch (e) {
+        console.error("Could not load dynamic intensity data, using fallback.", e);
+    }
 
     const intensityTbody = document.querySelector('#intensity-table tbody');
     if (intensityTbody) {

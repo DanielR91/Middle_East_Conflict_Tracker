@@ -27,6 +27,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/middle_east_cves.json
-          git commit -m "Auto-update Middle East CVE data" || echo "No changes to commit"
+          git add data/middle_east_cves.json data/target_intensity.json
+          git commit -m "Auto-update Middle East CVE and Target Intensity data" || echo "No changes to commit"
           git push

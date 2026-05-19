@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const CVE_FILE_PATH = path.join(__dirname, 'data', 'middle_east_cves.json');
+const INTENSITY_FILE_PATH = path.join(__dirname, 'data', 'target_intensity.json');
 
 const feedUrls = [
     { url: 'http://feeds.bbci.co.uk/news/world/middle_east/rss.xml', source: 'BBC News (Middle East)' },
@@ -12,6 +13,7 @@ const feedUrls = [
 ];
 
 const keywords = ['israel', 'gaza', 'palestin', 'iran', 'lebanon', 'syria', 'yemen', 'houthi', 'middle east', 'hamas', 'idf', 'apt33', 'apt34', 'muddywater', 'charming kitten', 'phosphorus', 'state-sponsored', 'cyberwarfare', 'anonymous sudan'];
+const targetCountries = ['israel', 'iran', 'lebanon', 'syria', 'jordan', 'egypt'];
 
 async function fetchCVEInfo(cveId) {
     try {
@@ -47,6 +49,9 @@ async function updateData() {
     const existingIds = new Set(existingCves.map(c => c.id));
     
     let allFoundCves = new Set();
+    
+    let countryStats = {};
+    targetCountries.forEach(c => countryStats[c] = { recent: 0, previous: 0 });
 
     for (const feed of feedUrls) {
         try {
@@ -60,6 +65,9 @@ async function updateData() {
                 const title = item.title || "";
                 const description = item.description || item.content || "";
                 const contentStr = (title + " " + description).toLowerCase();
+                const pubDate = new Date(item.pubDate || new Date()).getTime();
+                const now = Date.now();
+                const daysOld = (now - pubDate) / (1000 * 60 * 60 * 24);
 
                 const isRelevant = feed.source.includes('BBC') || keywords.some(kw => contentStr.includes(kw));
                 if (isRelevant) {
@@ -68,6 +76,16 @@ async function updateData() {
                         for (const match of matches) {
                             allFoundCves.add(match.toUpperCase());
                         }
+                    }
+                    
+                    if (daysOld <= 7) {
+                        targetCountries.forEach(c => {
+                            if (contentStr.includes(c)) countryStats[c].recent++;
+                        });
+                    } else if (daysOld <= 14) {
+                        targetCountries.forEach(c => {
+                            if (contentStr.includes(c)) countryStats[c].previous++;
+                        });
                     }
                 }
             }
@@ -86,7 +104,6 @@ async function updateData() {
                 existingIds.add(cveId);
                 newlyAdded = true;
             } else {
-                // Add fallback if API fails
                 existingCves.unshift({
                     id: cveId,
                     system: "Unknown (Active Exploit)",
@@ -100,13 +117,47 @@ async function updateData() {
     }
 
     if (newlyAdded) {
-        // Keep only top 8 most recent to keep the UI clean
         if (existingCves.length > 8) existingCves = existingCves.slice(0, 8);
         fs.writeFileSync(CVE_FILE_PATH, JSON.stringify(existingCves, null, 4));
         console.log('Successfully updated middle_east_cves.json');
     } else {
         console.log('No new CVEs found in the feeds today.');
     }
+
+    // Generate Target Intensity Data
+    const intensityData = targetCountries.map(country => {
+        const recent = countryStats[country].recent;
+        const previous = countryStats[country].previous;
+        
+        let intensity = "Low";
+        let intensityClass = "intensity-low";
+        if (recent >= 15) {
+            intensity = "Critical";
+            intensityClass = "intensity-high";
+        } else if (recent >= 5) {
+            intensity = "High";
+            intensityClass = "intensity-high";
+        } else if (recent >= 2) {
+            intensity = "Medium";
+            intensityClass = "intensity-med";
+        }
+
+        let trend = "up";
+        if (recent < previous) trend = "down";
+        if (recent === 0 && previous === 0) trend = "down";
+
+        return {
+            country: country.charAt(0).toUpperCase() + country.slice(1),
+            attacks: recent.toString(),
+            intensity: intensity,
+            trend: trend,
+            class: intensityClass
+        };
+    });
+
+    intensityData.sort((a, b) => parseInt(b.attacks) - parseInt(a.attacks));
+    fs.writeFileSync(INTENSITY_FILE_PATH, JSON.stringify(intensityData, null, 4));
+    console.log('Successfully updated target_intensity.json');
 }
 
 updateData();
