@@ -268,13 +268,37 @@ async function fetchNewsFeed() {
                 const isRelevant = feed.source.includes('BBC') || keywords.some(kw => contentStr.includes(kw));
 
                 if (isRelevant) {
+                    // Auto-Tagging Logic
+                    const foundTags = [];
+                    
+                    // Urgent Tags
+                    if (contentStr.includes('ransomware')) foundTags.push({ text: 'Ransomware', class: 'tag-urgent' });
+                    if (contentStr.includes('ddos')) foundTags.push({ text: 'DDoS', class: 'tag-urgent' });
+                    if (contentStr.includes('zero-day') || contentStr.includes('0-day')) foundTags.push({ text: 'Zero-Day', class: 'tag-urgent' });
+                    if (contentStr.includes('breach') || contentStr.includes('leak')) foundTags.push({ text: 'Data Breach', class: 'tag-urgent' });
+                    
+                    // Warn Tags
+                    if (contentStr.includes('apt') || contentStr.includes('state-sponsored')) foundTags.push({ text: 'APT Activity', class: 'tag-warn' });
+                    if (contentStr.includes('phishing')) foundTags.push({ text: 'Phishing', class: 'tag-warn' });
+                    
+                    // Info Tags (Default)
+                    if (contentStr.includes('iran')) foundTags.push({ text: 'Iran', class: '' });
+                    if (contentStr.includes('israel') || contentStr.includes('idf')) foundTags.push({ text: 'Israel', class: '' });
+                    if (contentStr.includes('gaza') || contentStr.includes('hamas')) foundTags.push({ text: 'Gaza', class: '' });
+
+                    // Dedup and limit to 3 tags max
+                    const uniqueTags = Array.from(new Set(foundTags.map(t => t.text)))
+                                        .map(text => foundTags.find(t => t.text === text))
+                                        .slice(0, 3);
+
                     allItems.push({
                         title,
                         link,
                         pubDate: new Date(pubDate).getTime() || 0,
                         pubDateStr: pubDate,
                         source: feed.source,
-                        summary: description
+                        summary: description,
+                        tags: uniqueTags
                     });
                 }
             });
@@ -302,6 +326,11 @@ async function fetchNewsFeed() {
                 <h3 class="news-title">
                     <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
                 </h3>
+                ${item.tags.length > 0 ? `
+                <div class="news-tags">
+                    ${item.tags.map(tag => `<span class="news-tag ${tag.class}">${tag.text}</span>`).join('')}
+                </div>
+                ` : ''}
                 <p class="news-summary">${item.summary.replace(/<[^>]+>/g, '').substring(0, 150)}...</p>
                 <div class="news-date">${new Date(item.pubDateStr).toLocaleString()}</div>
             </div>

@@ -459,6 +459,37 @@ h1, h2, h3, h4, .logo span {
     color: var(--accent-cyan);
 }
 
+.news-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.news-tag {
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--accent-cyan);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.news-tag.tag-urgent {
+    background: rgba(255, 51, 102, 0.1);
+    color: var(--accent-crimson);
+    border-color: rgba(255, 51, 102, 0.3);
+}
+
+.news-tag.tag-warn {
+    background: rgba(255, 207, 0, 0.1);
+    color: var(--accent-yellow);
+    border-color: rgba(255, 207, 0, 0.3);
+}
+
 .news-summary {
     font-size: 0.85rem;
     color: var(--text-secondary);
