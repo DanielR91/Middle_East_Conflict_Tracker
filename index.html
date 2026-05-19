@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Middle East Cyber & Conflict Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-crosshairs"></i>
+                <span>ME-TRACKER</span>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item active" data-tab="intelligence">
+                        <i class="fa-solid fa-chart-line"></i> Intelligence Dashboard
+                    </li>
+                    <li class="nav-item" data-tab="actors">
+                        <i class="fa-solid fa-user-ninja"></i> Threat Actors
+                    </li>
+                    <li class="nav-item" data-tab="news">
+                        <i class="fa-solid fa-rss"></i> Live News Feed
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <p>Status: <span class="status-indicator online"></span> LIVE</p>
+                <p id="last-updated">Last Updated: --</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>Middle East Cyber & Conflict Tracker</h1>
+                <div class="alerts">
+                    <span class="alert-badge"><i class="fa-solid fa-triangle-exclamation"></i> 3 High Severity Alerts</span>
+                </div>
+            </header>
+
+            <div class="tab-content-container">
+                <!-- Intelligence Dashboard Tab -->
+                <div id="intelligence" class="tab-pane active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Attacks Monitored (24h)</h3>
+                            <div class="stat-value text-crimson">142</div>
+                            <div class="stat-trend"><i class="fa-solid fa-arrow-up"></i> 12% vs last week</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Active Campaigns</h3>
+                            <div class="stat-value text-cyan">8</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Critical Vulnerabilities</h3>
+                            <div class="stat-value text-yellow">15</div>
+                            <div class="stat-trend"><i class="fa-solid fa-arrow-up"></i> 2 new today</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>DDoS Events</h3>
+                            <div class="stat-value">54</div>
+                        </div>
+                    </div>
+                    
+                    <div class="charts-row">
+                        <div class="chart-container">
+                            <h3>Attack Vectors Distribution</h3>
+                            <canvas id="attackVectorChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <h3>Targeted Industries</h3>
+                            <canvas id="industryChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="tables-grid">
+                        <div class="table-container glow-box">
+                            <h3>Cyber Attack Target Intensity by Country</h3>
+                            <table class="cyber-table" id="intensity-table">
+                                <thead>
+                                    <tr>
+                                        <th>Country</th>
+                                        <th>Total Attacks (30d)</th>
+                                        <th>Intensity</th>
+                                        <th>Trend</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="table-container glow-box">
+                            <h3>Actively Exploited Vulnerabilities (CVEs)</h3>
+                            <table class="cyber-table" id="cve-table">
+                                <thead>
+                                    <tr>
+                                        <th>CVE ID</th>
+                                        <th>Affected System</th>
+                                        <th>Severity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Threat Actors Tab -->
+                <div id="actors" class="tab-pane">
+                    <div class="table-container glow-box" style="margin-bottom: 30px;">
+                        <h3>Top Active Threat Actors (Middle East)</h3>
+                        <table class="cyber-table" id="actors-table">
+                            <thead>
+                                <tr>
+                                    <th>Threat Actor</th>
+                                    <th>Motivation</th>
+                                    <th>Primary Targets</th>
+                                    <th>Active Since</th>
+                                    <th>Trend</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="actors-grid" id="actors-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Live News Feed Tab -->
+                <div id="news" class="tab-pane">
+                    <div class="news-header">
+                        <h2>Latest Conflict & Cyber News</h2>
+                        <button id="refresh-news-btn" class="btn"><i class="fa-solid fa-rotate"></i> Refresh</button>
+                    </div>
+                    <div class="news-grid" id="news-container">
+                        <div class="loading">Loading latest news...</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
