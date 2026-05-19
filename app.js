@@ -30,6 +30,23 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchNewsFeed();
     document.getElementById('refresh-news-btn').addEventListener('click', fetchNewsFeed);
 
+    // News Search Functionality
+    const newsSearchInput = document.getElementById('news-search');
+    if (newsSearchInput) {
+        newsSearchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.news-card');
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    }
+
     // Update Last Updated Timestamp
     document.getElementById('last-updated').textContent = `Last Updated: ${new Date().toLocaleString()}`;
 });

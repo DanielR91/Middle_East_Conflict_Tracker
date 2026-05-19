@@ -150,7 +150,13 @@
                 <div id="news" class="tab-pane">
                     <div class="news-header">
                         <h2>Latest Conflict & Cyber News</h2>
-                        <button id="refresh-news-btn" class="btn"><i class="fa-solid fa-rotate"></i> Refresh</button>
+                        <div class="news-controls">
+                            <div class="search-box">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="news-search" placeholder="Search news by keyword or tag...">
+                            </div>
+                            <button id="refresh-news-btn" class="btn"><i class="fa-solid fa-rotate"></i> Refresh</button>
+                        </div>
                     </div>
                     <div class="news-grid" id="news-container">
                         <div class="loading">Loading latest news...</div>
