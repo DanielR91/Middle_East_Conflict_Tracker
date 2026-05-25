@@ -15,16 +15,16 @@
     },
     {
         "country": "Lebanon",
-        "attacks": "1",
-        "intensity": "Low",
+        "attacks": "2",
+        "intensity": "Medium",
         "trend": "up",
-        "class": "intensity-low"
+        "class": "intensity-med"
     },
     {
         "country": "Syria",
-        "attacks": "0",
+        "attacks": "1",
         "intensity": "Low",
-        "trend": "down",
+        "trend": "up",
         "class": "intensity-low"
     },
     {
