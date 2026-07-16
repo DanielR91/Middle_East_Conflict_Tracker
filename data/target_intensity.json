@@ -8,10 +8,10 @@
     },
     {
         "country": "Israel",
-        "attacks": "3",
-        "intensity": "Medium",
+        "attacks": "1",
+        "intensity": "Low",
         "trend": "up",
-        "class": "intensity-med"
+        "class": "intensity-low"
     },
     {
         "country": "Jordan",
