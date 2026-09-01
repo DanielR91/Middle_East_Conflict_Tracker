@@ -8,16 +8,16 @@
     },
     {
         "country": "Iran",
-        "attacks": "5",
-        "intensity": "High",
+        "attacks": "3",
+        "intensity": "Medium",
         "trend": "up",
-        "class": "intensity-high"
+        "class": "intensity-med"
     },
     {
         "country": "Lebanon",
-        "attacks": "0",
+        "attacks": "1",
         "intensity": "Low",
-        "trend": "down",
+        "trend": "up",
         "class": "intensity-low"
     },
     {
