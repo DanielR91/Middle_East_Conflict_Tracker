@@ -14,13 +14,6 @@
         "class": "intensity-high"
     },
     {
-        "country": "Egypt",
-        "attacks": "2",
-        "intensity": "Medium",
-        "trend": "up",
-        "class": "intensity-med"
-    },
-    {
         "country": "Lebanon",
         "attacks": "1",
         "intensity": "Low",
@@ -36,6 +29,13 @@
     },
     {
         "country": "Jordan",
+        "attacks": "0",
+        "intensity": "Low",
+        "trend": "down",
+        "class": "intensity-low"
+    },
+    {
+        "country": "Egypt",
         "attacks": "0",
         "intensity": "Low",
         "trend": "down",
