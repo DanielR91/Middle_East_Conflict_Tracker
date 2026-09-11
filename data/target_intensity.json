@@ -15,9 +15,9 @@
     },
     {
         "country": "Lebanon",
-        "attacks": "1",
+        "attacks": "0",
         "intensity": "Low",
-        "trend": "up",
+        "trend": "down",
         "class": "intensity-low"
     },
     {
