@@ -1,14 +1,14 @@
 [
     {
         "country": "Iran",
-        "attacks": "5",
+        "attacks": "8",
         "intensity": "High",
         "trend": "up",
         "class": "intensity-high"
     },
     {
         "country": "Israel",
-        "attacks": "4",
+        "attacks": "2",
         "intensity": "Medium",
         "trend": "up",
         "class": "intensity-med"
