@@ -14,24 +14,24 @@
         "class": "intensity-low"
     },
     {
-        "country": "Egypt",
+        "country": "Lebanon",
         "attacks": "1",
         "intensity": "Low",
         "trend": "up",
         "class": "intensity-low"
     },
     {
-        "country": "Lebanon",
-        "attacks": "0",
+        "country": "Syria",
+        "attacks": "1",
         "intensity": "Low",
-        "trend": "down",
+        "trend": "up",
         "class": "intensity-low"
     },
     {
-        "country": "Syria",
-        "attacks": "0",
+        "country": "Egypt",
+        "attacks": "1",
         "intensity": "Low",
-        "trend": "down",
+        "trend": "up",
         "class": "intensity-low"
     },
     {
